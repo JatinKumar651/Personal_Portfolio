@@ -1,11 +1,7 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import HeroSection from '@/components/home/HeroSection';
 import StatusFeed from '@/components/home/StatusFeed';
-
-const HeroSection = dynamic(() => import('@/components/home/HeroSection'), {
-  ssr: false,
-});
 
 export default function HomePage() {
   return (

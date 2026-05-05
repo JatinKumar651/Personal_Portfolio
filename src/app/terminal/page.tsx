@@ -1,10 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-
-const CLI = dynamic(() => import('@/components/terminal/CLI'), {
-  ssr: false,
-});
+import CLI from '@/components/terminal/CLI';
 
 export default function TerminalPage() {
   return (

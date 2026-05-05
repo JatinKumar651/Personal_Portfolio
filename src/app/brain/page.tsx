@@ -1,10 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-
-const ForceGraph = dynamic(() => import('@/components/brain/ForceGraph'), {
-  ssr: false,
-});
+import ForceGraph from '@/components/brain/ForceGraph';
 
 export default function BrainPage() {
   return (

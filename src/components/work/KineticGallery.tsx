@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useState, useCallback } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { useRef, useState, useCallback, useEffect } from 'react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
 import ProjectSlate from './ProjectSlate';
 import { projects } from '@/data/projects';
 import { SPRING_CONFIG } from '@/lib/spring';
@@ -10,13 +10,20 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 export default function KineticGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(1200);
   const x = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 100, damping: 30 });
 
-  const slateWidth = 560; // px per project slate
+  useEffect(() => {
+    setViewportWidth(window.innerWidth);
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const slateWidth = 560;
   const gap = 40;
-  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
-  const leftSpacer = viewportWidth * 0.3; // 30vw
+  const leftSpacer = viewportWidth * 0.3;
   const totalWidth = leftSpacer + projects.length * (slateWidth + gap) + viewportWidth * 0.1;
   const maxDrag = -(totalWidth - viewportWidth);
 
